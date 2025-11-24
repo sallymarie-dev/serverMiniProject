@@ -37,6 +37,22 @@ app.post("/snacks", (req, res) => {
   res.status(201).json(newSnack);
 });
 
+// GET /snacks/:id - get a snack by ID
+app.get("/snacks/:id", (req, res) => {
+  const snack = snacksStorage.find((s) => s.id === req.params.id);
+  if (!snack) return res.status(404).json({ error: "Snack not found" });
+  res.status(200).json(snack);
+});
+
+// DELETE /snacks/:id so i can remove a snack by the ID
+app.delete("/snacks/:id", (req, res) => {
+  const snack = snacksStorage.find((s) => s.id === req.params.id);
+  if (!snack) return res.status(404).json({ error: "Snack not found" });
+
+  snacksStorage = snacksStorage.filter((s) => s.id !== req.params.id);
+  res.status(200).json({ message: "Snack deleted successfully" });
+});
+
 
 // Start server
 app.listen(PORT, () => {
