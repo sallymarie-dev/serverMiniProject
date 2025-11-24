@@ -6,6 +6,22 @@ const PORT = 3000;
 
 // Middleware to parse JSON bodies
 app.use(express.json());
+// logging middleware
+app.use((req, res, next) => {
+  const bodyToLog = ["POST", "PUT", "PATCH"].includes(req.method) ? req.body : {};
+  console.log(`${req.method} ${req.path}`, { body: bodyToLog, query: req.query, params: req.params });
+
+  res.on("finish", () => {
+    console.log(`Response status: ${res.statusCode}`);
+  });
+
+  next();
+});
+
+// 404 route error codin
+app.use((req, res) => {
+  res.status(404).json({ error: "Route not found" });
+});
 
 // data array with seed data
 let snacksStorage = [
