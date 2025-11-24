@@ -69,6 +69,13 @@ app.delete("/snacks/:id", (req, res) => {
   res.status(200).json({ message: "Snack deleted successfully" });
 });
 
+app.get("/", (req, res) => {
+  res.send("<h1>Hello, Express Snacks API!</h1>");
+});
+
+app.post("/echo", (req, res) => {
+  res.json({ received: req.body, message: "Echo successful!" });
+});
 
 // Start server
 app.listen(PORT, () => {
