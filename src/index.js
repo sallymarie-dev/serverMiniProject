@@ -80,7 +80,7 @@ app.delete("/snacks/:id", (req, res) => {
   const snack = snacksStorage.find((s) => s.id === req.params.id);
   if (!snack) return res.status(404).json({ error: "Snack not found" });
 
-  snacksStorage = snacksStorage.filter((s) => s.id !== req.params.id);
+  snacksStorage = snacksStorage.filter((s) => snacks.id !== req.params.id);
   res.status(200).json({ message: "Snack deleted successfully" });
 });
 
